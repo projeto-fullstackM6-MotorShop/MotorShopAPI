@@ -4,7 +4,7 @@ import createAnnouncementService from "../../services/announcement/createAnnounc
 
 const createAnnouncementController = async (req: Request, res: Response) => {
   const announcement: IAnnouncement = req.body;
-  const response = createAnnouncementService(announcement);
+  const response = await createAnnouncementService(announcement);
 
   return res.status(201).json(response);
 };

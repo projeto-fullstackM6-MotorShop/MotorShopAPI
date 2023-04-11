@@ -4,7 +4,7 @@ declare global {
   namespace Express {
     interface Request {
       validatedBody: object;
-      announce: {
+      announcement: {
         id: string;
       };
     }

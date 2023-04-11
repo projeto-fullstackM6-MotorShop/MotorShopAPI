@@ -1,18 +1,21 @@
 import { Request, Response, NextFunction } from "express";
+import { AnySchema } from "yup";
 
-const validateSchemaMiddleware =
-  (serializer: any) =>
+const ensureDataIsValidMiddleware =
+  (schema: AnySchema) =>
   async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const validated = await serializer.validade(req.body, {
-        stipUnknow: true,
-        abortEarly: true,
+      const validatedData = await schema.validate(req.body, {
+        abortEarly: false,
+        stripUnknown: true,
       });
-      req.validatedBody = validated;
+      req.body = validatedData;
       return next();
     } catch (error: any) {
-      res.status(400).send({ message: error.message });
+      return res.status(400).json({
+        error: error.errors,
+      });
     }
   };
 
-export default validateSchemaMiddleware;
+export default ensureDataIsValidMiddleware;

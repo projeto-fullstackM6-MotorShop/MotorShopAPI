@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import { Request, Response, NextFunction } from "express";
 
 export class appError extends Error {
   statusCode: number;
@@ -9,7 +9,12 @@ export class appError extends Error {
   }
 }
 
-export const handleErrors = (err: Error, req: Request, res: Response) => {
+export const handleErrors = (
+  err: Error,
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   if (err instanceof appError) {
     console.log(err.message);
     return res.status(err.statusCode).send({ message: err.message });
