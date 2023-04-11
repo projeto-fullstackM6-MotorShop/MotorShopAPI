@@ -1,7 +1,14 @@
-import * as express from "express";
+import { IUser } from "../../interfaces/users";
 
 declare global {
   namespace Express {
-    interface Request {}
+    interface Request {
+      validatedBody: object;
+      announce: {
+        id: string;
+      };
+    }
   }
 }
+
+export {};

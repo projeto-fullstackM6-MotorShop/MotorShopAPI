@@ -7,7 +7,7 @@ import {
 } from "typeorm";
 
 @Entity("announces")
-class Announce {
+class Announcement {
   @PrimaryGeneratedColumn("uuid")
   id: string;
 
@@ -54,4 +54,4 @@ class Announce {
   is_good_price: boolean;
 }
 
-export default Announce;
+export default Announcement;
