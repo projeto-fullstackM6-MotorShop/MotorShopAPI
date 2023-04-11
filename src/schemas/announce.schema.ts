@@ -11,5 +11,6 @@ export const announcement: Schema<IAnnouncement> = yup.object().shape({
     fuel_type: yup.string().required("Fuel type is required"),
     price: yup.number().required("Price is required"),
     description: yup.string().required("Description is required"),
+    fipe: yup.number().required("Fipe price is required"),
     cover_img: yup.string().required("Cover image is required"),
 });

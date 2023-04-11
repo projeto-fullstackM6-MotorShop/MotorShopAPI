@@ -6,6 +6,7 @@ export interface IAnnouncement {
   color: string;
   fuel_type: string;
   price: number;
+  fipe: number;
   description: string;
   cover_img: string;
 }
