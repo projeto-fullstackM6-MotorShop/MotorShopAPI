@@ -9,6 +9,7 @@ export interface IAnnouncement {
   fipe: number;
   description: string;
   cover_img: string;
+  is_good_price?: boolean;
 }
 
 export interface IAnnouncementResponse extends IAnnouncement {
