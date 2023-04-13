@@ -48,3 +48,18 @@ export const allAnnouncesSchema = yup.array(yup.object().shape({
   cover_img: yup.string(),
   is_good_price: yup.boolean(),
 }))
+
+
+export const updateAnnouncesSchema = yup.object().shape({
+  brand: yup.string(),
+  model: yup.string(),
+  fabrication_year: yup.string(),
+  km: yup.string(),
+  color: yup.string(),
+  fuel_type: yup.string(),
+  price: yup.string(),
+  fipe: yup.string(),
+  description: yup.string(),
+  cover_img: yup.string(),
+  is_good_price: yup.boolean(),
+})
