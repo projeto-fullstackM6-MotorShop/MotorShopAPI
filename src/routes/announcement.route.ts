@@ -5,6 +5,7 @@ import createAnnouncementController from "../controllers/announcement/createAnno
 import { getAllAnnouncementController } from "../controllers/announcement/getAnnouncement.controller";
 import { getAnnouncementByIdController } from "../controllers/announcement/getAnnouncementById.controller";
 import { updateAnnounceController } from "../controllers/announcement/updateAnnouncement.controller";
+import { deleteAnnoucementController } from "../controllers/announcement/deleteAnnoucement.controller";
 
 const announcementRoutes = Router();
 
@@ -14,10 +15,12 @@ announcementRoutes.post(
   createAnnouncementController
 );
 
-announcementRoutes.get("", getAllAnnouncementController)
+announcementRoutes.get("", getAllAnnouncementController);
 
-announcementRoutes.get("/:id", getAnnouncementByIdController)
+announcementRoutes.get("/:id", getAnnouncementByIdController);
 
-announcementRoutes.patch("/:id", updateAnnounceController)
+announcementRoutes.patch("/:id", updateAnnounceController);
+
+announcementRoutes.delete("/:id", deleteAnnoucementController);
 
 export default announcementRoutes;
