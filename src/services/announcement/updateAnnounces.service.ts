@@ -1,30 +1,41 @@
-import { AppDataSource } from "../../data-source"
-import Announcement from "../../entities/announce.entity"
-import { appError } from "../../errors"
-import { updateAnnouncesSchema } from "../../schemas/announce.schema"
+import { Repository } from "typeorm";
+import { AppDataSource } from "../../data-source";
+import Announcement from "../../entities/announce.entity";
+import {
+  IAnnouncement,
+  IAnnouncementResponse,
+} from "../../interfaces/announcement";
 
-export const updateAnnouncesService =async (data: any , idAnnounce: string) => {
-    const announcesRepository = AppDataSource.getRepository(Announcement)
+const updateAnnouncementService = async (
+  data: IAnnouncement,
+  id: string
+): Promise<IAnnouncementResponse> => {
+  const announcementRepository: Repository<Announcement> =
+    AppDataSource.getRepository(Announcement);
 
-    const announceExists = announcesRepository.findOneBy({id: idAnnounce})
+  const announcementExists = await announcementRepository.findOneBy({
+    id: id,
+  });
 
-    if(!announceExists){
-        throw new appError("Announce don't exists" , 404)
+  const { price } = data;
+  if (announcementExists) {
+    const percentValue = announcementExists.fipe * 0.05;
+    const is_good_price = price <= announcementExists.fipe - percentValue;
+
+    if (price && is_good_price) {
+      data.is_good_price = true;
+    } else {
+      data.is_good_price = false;
     }
+  }
 
-    await announcesRepository.update({id: idAnnounce} , {
-        ...data
-    })
+  const updatedAnnouncement = announcementRepository.create({
+    ...announcementExists,
+    ...data,
+  });
+  await announcementRepository.save(updatedAnnouncement);
 
-    const updatedAnnounce = await announcesRepository.findOneBy({id: idAnnounce})
+  return updatedAnnouncement;
+};
 
-    const validateContact = await updateAnnouncesSchema.validate(
-        updatedAnnounce,
-        {
-            abortEarly:false,
-            stripUnknown: true
-        }
-    )
-
-    return validateContact
-}
+export default updateAnnouncementService;

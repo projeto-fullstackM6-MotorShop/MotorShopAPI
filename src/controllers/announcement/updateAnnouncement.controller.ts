@@ -1,11 +1,17 @@
-import { Request, Response } from "express"
-import { updateAnnouncesService } from "../../services/announcement/updateAnnounces.service"
+import { Request, Response } from "express";
+import updateAnnouncementService from "../../services/announcement/updateAnnounces.service";
+import { IAnnouncement } from "../../interfaces/announcement";
 
-export const updateAnnounceController = async (req: Request , resp : Response) => {
-    const id = req.params.id
-    const data = req.body
+export const updateAnnouncementController = async (
+  req: Request,
+  resp: Response
+) => {
+  const announcementId: string = req.params.id;
+  const data: IAnnouncement = req.body;
 
-    const updatedContact = await updateAnnouncesService(data , id)
+  const updatedContact = await updateAnnouncementService(data, announcementId);
 
-    return resp.status(201).json(updatedContact)
-}
+  return resp.status(201).json(updatedContact);
+};
+
+export default updateAnnouncementController;
