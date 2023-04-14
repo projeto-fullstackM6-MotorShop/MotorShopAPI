@@ -1,16 +1,25 @@
+import { Repository } from "typeorm";
 import { AppDataSource } from "../../data-source";
 import Announcement from "../../entities/announce.entity";
-import { announcesShape } from "../../schemas/announce.schema";
+import { IAnnouncementResponse } from "../../interfaces/announcement";
+import { allAnnouncementsSchema } from "../../schemas/announce.schema";
 
+const getAllAnnouncementService = async (): Promise<
+  IAnnouncementResponse[] | undefined
+> => {
+  const announcementRepository: Repository<Announcement> =
+    AppDataSource.getRepository(Announcement);
 
-export const getAllAnnouncementService = async () => {
-  const announcementRepository = AppDataSource.getRepository(Announcement);
+  const allAnnouncements = await announcementRepository.find();
 
-  const announcement = await announcementRepository.find();
+  const announcementsList = await allAnnouncementsSchema.validate(
+    allAnnouncements,
+    {
+      stripUnknown: true,
+    }
+  );
 
-  const allAnnounces = await announcesShape.validate(announcement, {
-    stripUnknown: true,
-  });
-
-  return allAnnounces;
+  return announcementsList;
 };
+
+export default getAllAnnouncementService;

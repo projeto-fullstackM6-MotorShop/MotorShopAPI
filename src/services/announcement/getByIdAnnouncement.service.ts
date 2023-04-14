@@ -1,17 +1,19 @@
+import { Repository } from "typeorm";
 import { AppDataSource } from "../../data-source";
 import Announcement from "../../entities/announce.entity";
-import { appError } from "../../errors";
+import { IAnnouncement } from "../../interfaces/announcement";
 
-export const getByIdAnnouncementService = async (id: string) => {
-  const announcementRepository = AppDataSource.getRepository(Announcement);
+const getByIdAnnouncementService = async (
+  id: string
+): Promise<IAnnouncement | null> => {
+  const announcementRepository: Repository<Announcement> =
+    AppDataSource.getRepository(Announcement);
 
   const findAnnoucement = await announcementRepository.findOneBy({
     id: id,
   });
 
-  if (!findAnnoucement) {
-    throw new appError("Announcement not found", 404);
-  }
-
   return findAnnoucement;
 };
+
+export default getByIdAnnouncementService;

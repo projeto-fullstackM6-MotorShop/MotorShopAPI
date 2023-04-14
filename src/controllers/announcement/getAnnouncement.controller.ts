@@ -1,9 +1,10 @@
 import { Request, Response } from "express";
-import { getAllAnnouncementService } from "../../services/announcement/getAnnouncement.service";
+import getAllAnnouncementService from "../../services/announcement/getAnnouncement.service";
 
-export const getAllAnnouncementController = async (req: Request , resp : Response) => {
+const getAllAnnouncementController = async (req: Request, resp: Response) => {
+  const allAnnouncements = await getAllAnnouncementService();
 
-    const announcement = await getAllAnnouncementService()
+  return resp.status(200).json(allAnnouncements);
+};
 
-    return resp.status(200).json(announcement)
-}
+export default getAllAnnouncementController;
