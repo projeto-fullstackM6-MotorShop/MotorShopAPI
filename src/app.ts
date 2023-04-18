@@ -4,14 +4,17 @@ import cors from "cors";
 import { handleErrors } from "./errors";
 import announcementRoutes from "./routes/announcement.route";
 import userRoutes from "./routes/user.route";
+import sessionRoutes from "./routes/session.route";
 
 const app: Application = express();
 
 app.use(express.json());
 app.use(cors());
-app.use(handleErrors);
 
 app.use("/announcement", announcementRoutes);
 app.use("/user", userRoutes);
+app.use("/login", sessionRoutes);
+
+app.use(handleErrors);
 
 export default app;
