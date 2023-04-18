@@ -2,9 +2,11 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from "typeorm";
+import User from "./user.entity";
 
 @Entity("announces")
 class Announcement {
@@ -52,6 +54,9 @@ class Announcement {
 
   @Column({ type: "boolean", default: false })
   is_good_price: boolean;
+
+  @ManyToOne(() => User, (user) => user.annoucements)
+  user: User;
 }
 
 export default Announcement;
