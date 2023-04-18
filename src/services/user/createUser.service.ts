@@ -6,9 +6,7 @@ import { appError } from "../../errors";
 import { hash } from "bcryptjs";
 import { userResponseSchema } from "../../schemas/user.schema";
 
-const createAnnouncementService = async (
-  payload: IUser
-): Promise<IUserResponse> => {
+const createUserService = async (payload: IUser): Promise<IUserResponse> => {
   const userRepository: Repository<User> = AppDataSource.getRepository(User);
 
   const isExistsEmail = await userRepository.findOneBy({
@@ -37,4 +35,4 @@ const createAnnouncementService = async (
   return validateResponse;
 };
 
-export default createAnnouncementService;
+export default createUserService;
