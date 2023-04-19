@@ -61,7 +61,7 @@ class Announcement {
   @ManyToOne(() => User, (user) => user.annoucements)
   user: User;
 
-  @OneToOne(() => Image)
+  @ManyToOne(() => Image, (image) => image.announcement)
   @JoinColumn()
   image: Image;
 
