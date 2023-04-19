@@ -11,14 +11,14 @@ const validateTokenMiddleware = async (req: Request, res: Response, next: NextFu
 
   token = token.split(" ")[1];
 
-  jwt.verify(token, 'chavesupersecreta', (error, decoded: any) => {
+  jwt.verify(token, process.env.SECRET_KEY!, (error, decoded: any) => {
     if (error) {
       return res.status(401).json(error);
     }
-    req.body.id = decoded.sub as string
-    // req.user = {
-    //   id: decoded.sub as string,
-    // };
+    
+    req.user = {
+      id: decoded.sub as string,
+    };
     
     return next();
   });
