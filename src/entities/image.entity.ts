@@ -4,7 +4,9 @@ import {
 	PrimaryGeneratedColumn,
 	CreateDateColumn,
 	UpdateDateColumn,
+	OneToMany,
 } from "typeorm";
+import Announcement from "./announce.entity";
 
 @Entity("images")
 export class Image {
@@ -19,4 +21,7 @@ export class Image {
 
 	@UpdateDateColumn()
 	updatedAt: Date;
+
+	@OneToMany(() => Announcement, (announcement) => announcement.image)
+	announcement: Announcement;
 }

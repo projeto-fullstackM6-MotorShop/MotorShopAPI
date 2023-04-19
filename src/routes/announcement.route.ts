@@ -7,11 +7,13 @@ import getAnnouncementByIdController from "../controllers/announcement/getAnnoun
 import ensureAnnouncementExistsMiddleware from "../middlewares/ensureAnnouncementExists.middleware";
 import createAnnouncementController from "../controllers/announcement/createAnnouncement.controller";
 import { announcementRequestSchema } from "../schemas/announce.schema";
+import validateTokenMiddleware from "../middlewares/validateToken.middleware";
 
 const announcementRoutes = Router();
 
 announcementRoutes.post(
   "",
+  validateTokenMiddleware,
   validateSchemaMiddleware(announcementRequestSchema),
   createAnnouncementController
 );
@@ -26,12 +28,14 @@ announcementRoutes.get(
 
 announcementRoutes.patch(
   "/:id",
+  validateTokenMiddleware,
   ensureAnnouncementExistsMiddleware,
   updateAnnouncementController
 );
 
 announcementRoutes.delete(
   "/:id",
+  validateTokenMiddleware,
   ensureAnnouncementExistsMiddleware,
   deleteAnnoucementController
 );
