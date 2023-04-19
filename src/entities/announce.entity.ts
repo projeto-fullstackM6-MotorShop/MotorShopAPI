@@ -2,11 +2,14 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
   ManyToOne,
+  OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from "typeorm";
 import User from "./user.entity";
+import { Image } from "./image.entity";
 
 @Entity("announces")
 class Announcement {
@@ -57,6 +60,11 @@ class Announcement {
 
   @ManyToOne(() => User, (user) => user.annoucements)
   user: User;
+
+  @OneToOne(() => Image)
+  @JoinColumn()
+  image: Image;
+
 }
 
 export default Announcement;
