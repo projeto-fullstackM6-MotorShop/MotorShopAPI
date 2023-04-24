@@ -40,7 +40,7 @@ class User {
   @UpdateDateColumn({ type: "date" })
   updatedAt: Date;
 
-  @OneToMany(() => Announcement, (announce) => announce.user)
+  @OneToMany(() => Announcement, (announcements) => announcements.user)
   annoucements: Announcement[];
 }
 

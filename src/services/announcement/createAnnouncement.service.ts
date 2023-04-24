@@ -7,7 +7,8 @@ import { Repository } from "typeorm";
 import Announcement from "../../entities/announce.entity";
 
 const createAnnouncementService = async (
-  payload: IAnnouncement
+  payload: IAnnouncement,
+  user: any
 ): Promise<IAnnouncementResponse> => {
   const announcementRepository: Repository<Announcement> =
     AppDataSource.getRepository(Announcement);
@@ -21,7 +22,10 @@ const createAnnouncementService = async (
     payload.is_good_price = true;
   }
 
-  const newAnnouncement = announcementRepository.create(payload);
+  const newAnnouncement = announcementRepository.create({
+    ...payload,
+    user: user,
+  });
   await announcementRepository.save(newAnnouncement);
 
   return newAnnouncement;

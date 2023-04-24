@@ -20,6 +20,7 @@ export const announcementResponseSchema: any = yup.object().shape({
   updatedAt: yup.string(),
   is_active: yup.boolean(),
   id: yup.string(),
+  userId: yup.string(),
 });
 
 export const allAnnouncementsSchema = yup.array(announcementResponseSchema);
@@ -36,4 +37,5 @@ export const updateAnnouncementSchema = yup.object().shape({
   description: yup.string(),
   cover_img: yup.string(),
   is_good_price: yup.boolean(),
+  userId: yup.string(),
 });

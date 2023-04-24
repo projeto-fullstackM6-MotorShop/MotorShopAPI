@@ -7,7 +7,6 @@ declare global {
       announcement: {
         id: string;
       };
-
     }
   }
 }

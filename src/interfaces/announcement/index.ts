@@ -28,4 +28,5 @@ export interface IAnnouncementResponse extends IAnnouncement {
   createdAt: Date;
   is_active: boolean;
   is_good_price: boolean;
+  userId?: string;
 }

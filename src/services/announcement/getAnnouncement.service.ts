@@ -19,7 +19,7 @@ const getAllAnnouncementService = async (): Promise<
     }
   );
 
-  return announcementsList;
+  return allAnnouncements;
 };
 
 export default getAllAnnouncementService;
