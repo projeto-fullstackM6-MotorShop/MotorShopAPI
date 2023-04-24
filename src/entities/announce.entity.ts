@@ -4,6 +4,7 @@ import {
   Entity,
   JoinColumn,
   ManyToOne,
+  OneToMany,
   OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
@@ -61,10 +62,8 @@ class Announcement {
   @ManyToOne(() => User, (user) => user.annoucements)
   user: User;
 
-  @ManyToOne(() => Image, (image) => image.announcement)
-  @JoinColumn()
-  image: Image;
-
+  @OneToMany(() => Image, (image) => image.announcement)
+  image: Image[];
 }
 
 export default Announcement;

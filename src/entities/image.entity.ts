@@ -1,27 +1,27 @@
 import {
-	Entity,
-	Column,
-	PrimaryGeneratedColumn,
-	CreateDateColumn,
-	UpdateDateColumn,
-	OneToMany,
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  CreateDateColumn,
+  UpdateDateColumn,
+  ManyToOne,
 } from "typeorm";
 import Announcement from "./announce.entity";
 
 @Entity("images")
 export class Image {
-	@PrimaryGeneratedColumn("uuid")
-	id: string;
+  @PrimaryGeneratedColumn("uuid")
+  id: string;
 
-	@Column({ nullable: false, unique: false })
-	imageUrl: string;
+  @Column({ nullable: false, unique: false })
+  imageUrl: string;
 
-	@CreateDateColumn()
-	createdAt: Date;
+  @CreateDateColumn()
+  createdAt: Date;
 
-	@UpdateDateColumn()
-	updatedAt: Date;
+  @UpdateDateColumn()
+  updatedAt: Date;
 
-	@OneToMany(() => Announcement, (announcement) => announcement.image)
-	announcement: Announcement;
+  @ManyToOne(() => Announcement, (announcement) => announcement.image)
+  announcement: Announcement;
 }
