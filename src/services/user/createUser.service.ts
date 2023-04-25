@@ -5,9 +5,12 @@ import { IUser, IUserResponse } from "../../interfaces/user";
 import { appError } from "../../errors";
 import { hash } from "bcryptjs";
 import { userResponseSchema } from "../../schemas/user.schema";
+import Address from "../../entities/address.entity";
 
 const createUserService = async (payload: IUser): Promise<IUserResponse> => {
   const userRepository: Repository<User> = AppDataSource.getRepository(User);
+  const addressRepository: Repository<Address> =
+    AppDataSource.getRepository(Address);
 
   const isExistsEmail = await userRepository.findOneBy({
     email: payload.email,
@@ -28,7 +31,20 @@ const createUserService = async (payload: IUser): Promise<IUserResponse> => {
   payload.password = await hash(payload.password, 10);
   const user = await userRepository.save(payload);
 
-  const validateResponse = await userResponseSchema.validate(user, {
+  await addressRepository.save({ ...payload.address, user });
+
+  const findUser = await userRepository.findOne({
+    where: {
+      id: user.id,
+    },
+    relations: {
+      address: true,
+    },
+  });
+
+  console.log(findUser);
+
+  const validateResponse = await userResponseSchema.validate(findUser, {
     stripUnknown: true,
   });
 
