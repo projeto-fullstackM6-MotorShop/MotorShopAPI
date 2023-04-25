@@ -1,4 +1,5 @@
 import * as yup from "yup";
+import { userResponseSchema } from "./user.schema";
 
 export const announcementRequestSchema: any = yup.object().shape({
   brand: yup.string().required("Brand is required"),
@@ -14,13 +15,13 @@ export const announcementRequestSchema: any = yup.object().shape({
 });
 
 export const announcementResponseSchema: any = yup.object().shape({
+  user: userResponseSchema,
   ...announcementRequestSchema.fields,
   is_good_price: yup.boolean(),
   createdAt: yup.string(),
   updatedAt: yup.string(),
   is_active: yup.boolean(),
   id: yup.string(),
-  userId: yup.string(),
 });
 
 export const allAnnouncementsSchema = yup.array(announcementResponseSchema);

@@ -10,7 +10,9 @@ const getAllAnnouncementService = async (): Promise<
   const announcementRepository: Repository<Announcement> =
     AppDataSource.getRepository(Announcement);
 
-  const allAnnouncements = await announcementRepository.find();
+  const allAnnouncements = await announcementRepository.find({
+    relations: { user: true },
+  });
 
   const announcementsList = await allAnnouncementsSchema.validate(
     allAnnouncements,
@@ -19,7 +21,7 @@ const getAllAnnouncementService = async (): Promise<
     }
   );
 
-  return allAnnouncements;
+  return announcementsList;
 };
 
 export default getAllAnnouncementService;

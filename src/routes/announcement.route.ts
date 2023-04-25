@@ -8,6 +8,7 @@ import ensureAnnouncementExistsMiddleware from "../middlewares/ensureAnnouncemen
 import createAnnouncementController from "../controllers/announcement/createAnnouncement.controller";
 import { announcementRequestSchema } from "../schemas/announce.schema";
 import validateTokenMiddleware from "../middlewares/validateToken.middleware";
+import getUserAnnouncementsController from "../controllers/announcement/getUserAnnouncements.controller";
 
 const announcementRoutes = Router();
 
@@ -16,6 +17,12 @@ announcementRoutes.post(
   validateTokenMiddleware,
   validateSchemaMiddleware(announcementRequestSchema),
   createAnnouncementController
+);
+
+announcementRoutes.get(
+  "/user",
+  validateTokenMiddleware,
+  getUserAnnouncementsController
 );
 
 announcementRoutes.get("", getAllAnnouncementController);
