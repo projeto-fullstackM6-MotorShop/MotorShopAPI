@@ -15,4 +15,9 @@ userRoutes.post(
 
 userRoutes.get("/profile", validateTokenMiddleware, profileUserController);
 
+
+userRoutes.post("/resetPassword", )
+
+userRoutes.patch("/resetPassword/:token",)
+
 export default userRoutes;

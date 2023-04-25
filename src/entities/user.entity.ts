@@ -34,6 +34,9 @@ class User {
   @Column({ type: "boolean", default: false })
   is_seller: boolean;
 
+  @Column({ type: "varchar", nullable: true })
+  reset_token: string
+
   @CreateDateColumn({ type: "date" })
   createdAt: Date;
 
