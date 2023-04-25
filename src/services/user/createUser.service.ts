@@ -42,8 +42,6 @@ const createUserService = async (payload: IUser): Promise<IUserResponse> => {
     },
   });
 
-  console.log(findUser);
-
   const validateResponse = await userResponseSchema.validate(findUser, {
     stripUnknown: true,
   });
