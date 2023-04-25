@@ -3,10 +3,12 @@ import {
   CreateDateColumn,
   Entity,
   OneToMany,
+  OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from "typeorm";
 import Announcement from "./announce.entity";
+import Address from "./address.entity";
 
 @Entity("users")
 class User {
@@ -42,6 +44,9 @@ class User {
 
   @OneToMany(() => Announcement, (announcements) => announcements.user)
   annoucements: Announcement[];
+
+  @OneToOne(() => Address, (address) => address.user)
+  address: Address;
 }
 
 export default User;
