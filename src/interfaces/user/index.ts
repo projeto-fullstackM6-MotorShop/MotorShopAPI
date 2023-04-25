@@ -1,3 +1,5 @@
+import { IAddressRequest, IAddressResponse } from "../address";
+
 export interface IUser {
   name: string;
   email: string;
@@ -6,6 +8,7 @@ export interface IUser {
   birth_date: string;
   password: string;
   is_seller?: boolean;
+  address: IAddressRequest;
 }
 
 export interface IUserResponse {
@@ -18,4 +21,5 @@ export interface IUserResponse {
   is_seller: boolean;
   createdAt: string;
   updatedAt: string;
+  address: IAddressResponse;
 }
