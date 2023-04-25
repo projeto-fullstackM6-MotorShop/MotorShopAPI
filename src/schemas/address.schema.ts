@@ -1,7 +1,7 @@
 import * as yup from "yup";
 
 export const addressRequestSchema = yup.object().shape({
-  zip_code: yup.string().required().min(8).max(8),
+  zip_code: yup.string().min(8).max(8),
   state: yup.string().required().min(2).max(2),
   street: yup.string().required(),
   city: yup.string().required(),
@@ -12,4 +12,13 @@ export const addressRequestSchema = yup.object().shape({
 export const addressResponseSchema = yup.object().shape({
   ...addressRequestSchema.fields,
   id: yup.string(),
+});
+
+export const addressToReturnRequestSchema = yup.object().shape({
+  zip_code: yup.string().min(8).max(8),
+  state: yup.string().min(2).max(2),
+  street: yup.string(),
+  city: yup.string(),
+  number: yup.string(),
+  complement: yup.string(),
 });

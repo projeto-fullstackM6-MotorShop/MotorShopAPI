@@ -21,5 +21,5 @@ export interface IUserResponse {
   is_seller: boolean;
   createdAt: string;
   updatedAt: string;
-  address: IAddressResponse;
+  address?: IAddressResponse;
 }

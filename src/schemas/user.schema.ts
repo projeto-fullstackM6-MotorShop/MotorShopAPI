@@ -1,5 +1,9 @@
 import * as yup from "yup";
-import { addressRequestSchema, addressResponseSchema } from "./address.schema";
+import {
+  addressRequestSchema,
+  addressResponseSchema,
+  addressToReturnRequestSchema,
+} from "./address.schema";
 
 export const userRequestSchema: any = yup.object().shape({
   name: yup.string().required("Name is required"),
@@ -14,6 +18,19 @@ export const userRequestSchema: any = yup.object().shape({
 
 export const userResponseSchema: any = yup.object().shape({
   address: addressResponseSchema,
+  updatedAt: yup.string(),
+  createdAt: yup.string(),
+  is_seller: yup.boolean(),
+  birth_date: yup.string(),
+  phone: yup.string(),
+  cpf: yup.string(),
+  email: yup.string(),
+  name: yup.string(),
+  id: yup.string(),
+});
+
+export const userToReturnResponseSchema: any = yup.object().shape({
+  address: addressToReturnRequestSchema,
   updatedAt: yup.string(),
   createdAt: yup.string(),
   is_seller: yup.boolean(),
