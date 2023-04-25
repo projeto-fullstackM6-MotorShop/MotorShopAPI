@@ -3,7 +3,6 @@ import { AppDataSource } from "../../data-source"
 import User from "../../entities/user.entity"
 import { appError } from "../../errors"
 
-
 const resetPassword = async (password: string, resetToken: any) => {
   
   const userRepo = AppDataSource.getRepository(User)

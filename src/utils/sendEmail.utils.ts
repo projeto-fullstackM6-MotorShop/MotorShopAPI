@@ -46,7 +46,7 @@ export const  resetPasswordTemplate = (userEmail: string, userName: string, prot
                     button: {
                         color: '#CD2B31',
                         text: 'Reset your password',
-                        link: `${protocol}://${host}/users/resetPassword/${resetToken}`
+                        link: `${protocol}://${host}/user/resetPassword/${resetToken}`
                     }
                 },
                 outro: 'If you did not request a password reset, no further action is required on your part.'

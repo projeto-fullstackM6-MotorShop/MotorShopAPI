@@ -3,15 +3,14 @@ import { AppDataSource } from "../../data-source"
 import User from "../../entities/user.entity"
 import { appError } from "../../errors"
 import { resetPasswordTemplate, sendEmail } from "../../utils/sendEmail.utils"
+import "dotenv/config"
 
 const sendResetEmailPassword = async (email: string, protocol: string, host: string) => {
 
   const userRepo = AppDataSource.getRepository(User)
 
-  let user = await userRepo.findOne({
-    where: {
-      email: email
-    }
+  let user = await userRepo.findOneBy({
+    email: email
   })
 
   if (!user) {
@@ -22,16 +21,15 @@ const sendResetEmailPassword = async (email: string, protocol: string, host: str
 
   user.reset_token = resetToken
 
-  const updateUser = userRepo.create({
+  const updateUserToken = userRepo.create({
     ...user
   })
 
-  await userRepo.save(updateUser)
+  await userRepo.save(updateUserToken)
 
   const emailTemplate = resetPasswordTemplate(email, user.name, protocol, host, resetToken)
 
   await sendEmail(emailTemplate)
-
 }
 
 export default sendResetEmailPassword
