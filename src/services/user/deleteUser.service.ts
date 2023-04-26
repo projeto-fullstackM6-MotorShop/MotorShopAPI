@@ -1,28 +1,27 @@
 import { AppDataSource } from "../../data-source";
 import Address from "../../entities/address.entity";
-import User  from "../../entities/user.entity";
+import User from "../../entities/user.entity";
 
+const deleteUserService = async (id: string): Promise<object> => {
+  const addressRepository = AppDataSource.getRepository(Address);
 
-const deleteUserService = async(
-    id: string
-  ):Promise<void> => {
+  const userRepository = AppDataSource.getRepository(User);
 
-    const addressRepository = AppDataSource.getRepository(Address)
+  const user = await userRepository.findOneBy({ id });
 
-    const userRepository = AppDataSource.getRepository(User);
-
-    const user = await userRepository.findOneBy({id})
-
-    const address = await addressRepository.findOne({relations: {
-      user: true
+  const address = await addressRepository.findOne({
+    relations: {
+      user: true,
     },
-      where:{
-        user: user!
-      }
-    })
-    
-    await addressRepository.delete(address!.id)
-    await userRepository.delete(id)
-}
+    where: {
+      user: user!,
+    },
+  });
 
-export default deleteUserService
+  await addressRepository.delete(address!.id);
+  await userRepository.delete(id);
+
+  return {};
+};
+
+export default deleteUserService;

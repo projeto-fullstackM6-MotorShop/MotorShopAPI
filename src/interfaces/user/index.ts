@@ -23,3 +23,13 @@ export interface IUserResponse {
   updatedAt: string;
   address?: IAddressResponse;
 }
+
+export interface IUserUpdate {
+  name?: string;
+  email?: string;
+  cpf?: string;
+  phone?: string;
+  birth_date?: string;
+  password?: string;
+  is_seller?: boolean;
+}
