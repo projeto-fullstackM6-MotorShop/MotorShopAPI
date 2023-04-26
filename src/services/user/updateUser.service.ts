@@ -13,7 +13,7 @@ export const updateUsersService = async (
 
   const user = await userRepository.findOneBy({ id });
 
-  if (email) {
+  if (email && user?.email != email) {
     const isExistsEmail = await userRepository.findOneBy({
       email: email,
     });
@@ -23,7 +23,7 @@ export const updateUsersService = async (
     }
   }
 
-  if (cpf) {
+  if (cpf && user?.cpf != cpf) {
     const isExistsCpf = await userRepository.findOneBy({
       cpf: cpf,
     });
