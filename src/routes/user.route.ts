@@ -6,6 +6,7 @@ import validateTokenMiddleware from "../middlewares/validateToken.middleware";
 import profileUserController from "../controllers/user/profileUser.controller";
 import { resetUserPassword, sendEmailResetPassword } from "../controllers/user/resetPassword.controller";
 import deleteUserController from "../controllers/user/deleteUser.controller";
+import updateUserController from "../controllers/user/updateUser.controller";
 
 const userRoutes = Router();
 
@@ -23,6 +24,11 @@ userRoutes.get("/profile",
 userRoutes.delete("",
   validateTokenMiddleware,
   deleteUserController
+)
+
+userRoutes.patch("",
+  validateTokenMiddleware,
+  updateUserController
 )
 
 userRoutes.post("/resetPassword", sendEmailResetPassword)
