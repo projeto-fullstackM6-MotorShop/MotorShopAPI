@@ -6,6 +6,7 @@ import { appError } from "../../errors";
 
 import  {IUser}  from "../../interfaces/user";
 import { hashSync } from "bcryptjs";
+import { userResponseSchema } from "../../schemas/user.schema";
 
 export const updateUsersService = async ({
     name,
@@ -25,11 +26,26 @@ export const updateUsersService = async ({
     if(!user) {
         throw new appError("User not found", 404)
     }
+
+    const isExistsEmail = await userRepository.findOneBy({
+        email: email,  
+    });
     
+    if (isExistsEmail) {
+        throw new appError("Email already registered", 409);
+    }
+    
+    const isExistsCpf = await userRepository.findOneBy({
+        cpf: cpf,
+    });
+       
+    if (isExistsCpf) {
+        throw new appError("Cpf already registered", 409);
+    }
+
     const addressData = await addressRepository.findOne({relations: {
         user: true
     },
-        
     where:{
         user: user!   
     }      
@@ -74,7 +90,11 @@ const userUpdate = await userRepository.findOne({
       address:true
     }})
 
-return userUpdate
+    const validateResponse = await userResponseSchema.validate(userUpdate, {
+        stripUnknown: true,
+      });
+
+return validateResponse
     
 }
       
