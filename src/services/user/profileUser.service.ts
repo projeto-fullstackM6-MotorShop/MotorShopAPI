@@ -6,7 +6,13 @@ import { userResponseSchema } from "../../schemas/user.schema";
 const profileUserService = async (id: string): Promise<IUserResponse> => {
   const userRepository = AppDataSource.getRepository(User);
 
-  const user = await userRepository.findOneBy({ id: id });
+  const user = await userRepository.findOne({
+    where: {
+    id: id,
+    },
+    relations:{
+      address:true
+    }});
 
   const validateResponse = await userResponseSchema.validate(user, {
     stripUnknown: true,

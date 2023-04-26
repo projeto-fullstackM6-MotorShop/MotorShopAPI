@@ -5,6 +5,7 @@ import { userRequestSchema } from "../schemas/user.schema";
 import validateTokenMiddleware from "../middlewares/validateToken.middleware";
 import profileUserController from "../controllers/user/profileUser.controller";
 import { resetUserPassword, sendEmailResetPassword } from "../controllers/user/resetPassword.controller";
+import deleteUserController from "../controllers/user/deleteUser.controller";
 
 const userRoutes = Router();
 
@@ -18,6 +19,11 @@ userRoutes.get("/profile",
   validateTokenMiddleware,
   profileUserController
 );
+
+userRoutes.delete("",
+  validateTokenMiddleware,
+  deleteUserController
+)
 
 userRoutes.post("/resetPassword", sendEmailResetPassword)
 userRoutes.patch("/resetPassword/:token", resetUserPassword)
