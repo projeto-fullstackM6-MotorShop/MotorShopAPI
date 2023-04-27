@@ -1,0 +1,24 @@
+import { AppDataSource } from "../../data-source";
+import User from "../../entities/user.entity";
+import { IUserResponse } from "../../interfaces/user";
+import { userResponseSchema } from "../../schemas/user.schema";
+
+const getUserService = async (id: string): Promise<IUserResponse> => {
+  const userRepository = AppDataSource.getRepository(User);
+
+  const user = await userRepository.findOne({
+    where: {
+    id: id,
+    },
+    relations:{
+      address:true
+    }});
+
+  const validateResponse = await userResponseSchema.validate(user, {
+    stripUnknown: true,
+  });
+
+  return validateResponse;
+};
+
+export default getUserService;
