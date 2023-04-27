@@ -2,18 +2,22 @@ import { Repository } from "typeorm";
 import { AppDataSource } from "../../data-source";
 import Announcement from "../../entities/announce.entity";
 import { IAnnouncementResponse } from "../../interfaces/announcement";
+import User from "../../entities/user.entity";
 
 const getUserAnnouncementsService = async (userId: any) => {
-  const announcementRepository: Repository<Announcement> =
-    AppDataSource.getRepository(Announcement);
+  const announcementRepo: any = AppDataSource.getRepository(User);
 
-  console.log(userId);
+  const userAnnouncements = await announcementRepo.find({
+    where: {
+      id: userId,
+    },
+    relations: {
+      annoucements: true
+    }
+  }); 
 
-  const userAnnouncements = await announcementRepository.findOneBy({
-    id: userId,
-  });
-  console.log(userAnnouncements);
-  return userAnnouncements;
+  return userAnnouncements[0].annoucements
+
 };
 
 export default getUserAnnouncementsService;

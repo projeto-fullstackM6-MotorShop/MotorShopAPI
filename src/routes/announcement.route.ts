@@ -9,6 +9,7 @@ import createAnnouncementController from "../controllers/announcement/createAnno
 import { announcementRequestSchema } from "../schemas/announce.schema";
 import validateTokenMiddleware from "../middlewares/validateToken.middleware";
 import getUserAnnouncementsController from "../controllers/announcement/getUserAnnouncements.controller";
+import getUserProfileAnnouncementsController from "../controllers/announcement/getUserProfileAnnouncements.controller";
 
 const announcementRoutes = Router();
 
