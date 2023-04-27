@@ -11,6 +11,7 @@ import {
 import deleteUserController from "../controllers/user/deleteUser.controller";
 import updateUserController from "../controllers/user/updateUser.controller";
 import updateAddressController from "../controllers/address/updateAddress.controller";
+import getUserController from "../controllers/user/getuserById.controlle";
 
 const userRoutes = Router();
 
@@ -19,17 +20,13 @@ userRoutes.post(
   ensureDataIsValidMiddleware(userRequestSchema),
   createUserController
 );
-
-userRoutes.get("/profile", validateTokenMiddleware, profileUserController);
-
 userRoutes.delete("", validateTokenMiddleware, deleteUserController);
-
 userRoutes.patch("", validateTokenMiddleware, updateUserController);
+userRoutes.get("/:id", getUserController);
 
 userRoutes.patch("/address", validateTokenMiddleware, updateAddressController);
 
 userRoutes.post("/resetPassword", sendEmailResetPassword);
-
 userRoutes.patch("/resetPassword/:token", resetUserPassword);
 
 export default userRoutes;

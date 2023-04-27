@@ -17,7 +17,6 @@ const getUserAnnouncementsService = async (userId: any) => {
   }); 
 
   return userAnnouncements[0].annoucements
-
 };
 
 export default getUserAnnouncementsService;
