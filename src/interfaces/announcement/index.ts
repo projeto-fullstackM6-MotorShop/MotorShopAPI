@@ -10,6 +10,7 @@ export interface IAnnouncement {
   description: string;
   cover_img: string;
   is_good_price?: boolean;
+  images?: string[];
 }
 
 export interface IAnnouncementResponse extends IAnnouncement {
@@ -29,4 +30,5 @@ export interface IAnnouncementResponse extends IAnnouncement {
   is_active: boolean;
   is_good_price: boolean;
   userId?: string;
+  images?: string[];
 }

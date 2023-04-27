@@ -12,6 +12,7 @@ export const announcementRequestSchema: any = yup.object().shape({
   description: yup.string().required("Description is required"),
   fipe: yup.number().required("Fipe price is required"),
   cover_img: yup.string().required("Cover image is required"),
+  images: yup.array(),
 });
 
 export const announcementResponseSchema: any = yup.object().shape({

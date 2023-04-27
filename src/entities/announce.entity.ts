@@ -63,7 +63,7 @@ class Announcement {
   user: User;
 
   @OneToMany(() => Image, (image) => image.announcement)
-  image: Image;
+  image: Image[];
 }
 
 export default Announcement;

@@ -5,6 +5,7 @@ import {
   IAnnouncement,
   IAnnouncementResponse,
 } from "../../interfaces/announcement";
+import { Image } from "../../entities/image.entity";
 
 const updateAnnouncementService = async (
   data: IAnnouncement,
@@ -13,11 +14,14 @@ const updateAnnouncementService = async (
   const announcementRepository: Repository<Announcement> =
     AppDataSource.getRepository(Announcement);
 
-  const announcementExists = await announcementRepository.findOneBy({
-    id: id,
+  const announcementExists = await announcementRepository.findOne({
+    where:{ id: id},
+    relations: {image: true}
   });
 
-  const { price } = data;
+  const imagesRepository = AppDataSource.getRepository(Image)
+
+  const { price, images } = data;
   if (announcementExists) {
     const percentValue = announcementExists.fipe * 0.05;
     const is_good_price = price <= announcementExists.fipe - percentValue;
@@ -27,6 +31,12 @@ const updateAnnouncementService = async (
     } else {
       data.is_good_price = false;
     }
+  }
+
+  if(images){
+    const newImages = images.map(image => imagesRepository.create({imageUrl:image}))
+    const imagensSave = await imagesRepository.save(newImages)
+    announcementExists!.image = imagensSave
   }
 
   const updatedAnnouncement = announcementRepository.create({
