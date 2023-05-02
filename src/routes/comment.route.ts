@@ -5,6 +5,7 @@ import ensureAnnouncementExistsMiddleware from "../middlewares/ensureAnnouncemen
 import ensureDataIsValidMiddleware from "../middlewares/validatedSchema.middleware";
 import { commentRequestSchema } from "../schemas/comment.schema";
 import getCommentsOfAnnouncementController from "../controllers/comment/getCommentsOfAnnouncement.controller";
+import deleteCommentController from "../controllers/comment/deleteComment.controller";
 
 const commentRoutes = Router();
 
@@ -22,5 +23,7 @@ commentRoutes.get(
   ensureAnnouncementExistsMiddleware,
   getCommentsOfAnnouncementController
 );
+
+commentRoutes.delete("/:id", validateTokenMiddleware, deleteCommentController);
 
 export default commentRoutes;
