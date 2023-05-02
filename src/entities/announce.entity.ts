@@ -11,6 +11,7 @@ import {
 } from "typeorm";
 import User from "./user.entity";
 import { Image } from "./image.entity";
+import Comment from "./comment.entity";
 
 @Entity("announces")
 class Announcement {
@@ -64,6 +65,9 @@ class Announcement {
 
   @OneToMany(() => Image, (image) => image.announcement)
   image: Image[];
+
+  @OneToMany(() => Comment, (comment) => comment.announcement)
+  comments: Comment[];
 }
 
 export default Announcement;
