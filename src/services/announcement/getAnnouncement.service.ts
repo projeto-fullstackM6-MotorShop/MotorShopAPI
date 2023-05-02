@@ -11,7 +11,7 @@ const getAllAnnouncementService = async (): Promise<
     AppDataSource.getRepository(Announcement);
 
   const allAnnouncements = await announcementRepository.find({
-    relations: { user: true },
+    relations: { user: true, image: true },
   });
 
   const announcementsList = await allAnnouncementsSchema.validate(
