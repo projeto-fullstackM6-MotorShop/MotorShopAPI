@@ -9,6 +9,7 @@ import {
 } from "typeorm";
 import Announcement from "./announce.entity";
 import Address from "./address.entity";
+import Comment from "./comment.entity";
 
 @Entity("users")
 class User {
@@ -37,7 +38,7 @@ class User {
   is_seller: boolean;
 
   @Column({ type: "varchar", nullable: true })
-  reset_token: string
+  reset_token: string;
 
   @CreateDateColumn({ type: "date" })
   createdAt: Date;
@@ -50,6 +51,9 @@ class User {
 
   @OneToOne(() => Address, (address) => address.user)
   address: Address;
+
+  @OneToMany(() => Comment, (comment) => comment.user)
+  comments: Comment[];
 }
 
 export default User;
