@@ -6,6 +6,7 @@ import announcementRoutes from "./routes/announcement.route";
 import userRoutes from "./routes/user.route";
 import sessionRoutes from "./routes/session.route";
 import profiletRoutes from "./routes/profile.route";
+import commentRoutes from "./routes/comment.route";
 
 const app: Application = express();
 
@@ -16,6 +17,7 @@ app.use("/announcement", announcementRoutes);
 app.use("/user", userRoutes);
 app.use("/login", sessionRoutes);
 app.use("/profile", profiletRoutes);
+app.use("/comment", commentRoutes);
 
 app.use(handleErrors);
 
