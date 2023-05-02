@@ -33,6 +33,7 @@ export const announcementToReturnResponseSchema: any = yup.object().shape({
   updatedAt: yup.string(),
   is_active: yup.boolean(),
   id: yup.string(),
+  image: yup.array(),
 });
 
 export const allAnnouncementsSchema = yup.array(

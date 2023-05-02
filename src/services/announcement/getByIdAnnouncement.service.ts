@@ -9,8 +9,9 @@ const getByIdAnnouncementService = async (
   const announcementRepository: Repository<Announcement> =
     AppDataSource.getRepository(Announcement);
 
-  const findAnnoucement = await announcementRepository.findOneBy({
-    id: id,
+  const findAnnoucement = await announcementRepository.findOne({
+    where: { id: id },
+    relations: { image: true },
   });
 
   return findAnnoucement;
