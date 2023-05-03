@@ -32,6 +32,9 @@ class User {
   birth_date: string;
 
   @Column({ type: "varchar" })
+  description: string;
+
+  @Column({ type: "varchar" })
   password: string;
 
   @Column({ type: "boolean", default: false })

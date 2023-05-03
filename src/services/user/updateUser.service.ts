@@ -6,7 +6,7 @@ import { hashSync } from "bcryptjs";
 import { userResponseSchema } from "../../schemas/user.schema";
 
 export const updateUsersService = async (
-  { name, cpf, email, phone, birth_date, is_seller, password }: IUserUpdate,
+  { name, cpf, email, phone, birth_date, is_seller, password, description }: IUserUpdate,
   id: string
 ) => {
   const userRepository = AppDataSource.getRepository(User);
@@ -39,6 +39,7 @@ export const updateUsersService = async (
     email: email ? email : user!.email,
     phone: phone ? phone : user!.phone,
     birth_date: birth_date ? birth_date : user!.birth_date,
+    description: description ? description : user!.description,
     is_seller: is_seller ? is_seller : user!.is_seller,
     password: password ? hashSync(password, 10) : user!.password,
   });

@@ -6,6 +6,7 @@ export interface IUser {
   cpf: string;
   phone: string;
   birth_date: string;
+  description: string;
   password: string;
   is_seller?: boolean;
   address: IAddressRequest;
@@ -18,6 +19,7 @@ export interface IUserResponse {
   cpf: string;
   phone: string;
   birth_date: string;
+  description: string;
   is_seller: boolean;
   createdAt: string;
   updatedAt: string;
@@ -30,6 +32,7 @@ export interface IUserUpdate {
   cpf?: string;
   phone?: string;
   birth_date?: string;
+  description?: string;
   password?: string;
   is_seller?: boolean;
 }
