@@ -19,7 +19,6 @@ commentRoutes.post(
 
 commentRoutes.get(
   "/:id",
-  validateTokenMiddleware,
   ensureAnnouncementExistsMiddleware,
   getCommentsOfAnnouncementController
 );

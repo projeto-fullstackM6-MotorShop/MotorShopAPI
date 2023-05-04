@@ -5,13 +5,9 @@ const getCommentsOfAnnouncementController = async (
   req: Request,
   res: Response
 ): Promise<Response> => {
-  const userId: string = req.user.id;
   const announcementId: string = req.params.id;
 
-  const comments = await getCommentsOfAnnouncementService(
-    userId,
-    announcementId
-  );
+  const comments = await getCommentsOfAnnouncementService(announcementId);
 
   return res.status(200).json(comments);
 };
