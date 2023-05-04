@@ -31,6 +31,19 @@ export const userResponseSchema: any = yup.object().shape({
   id: yup.string(),
 });
 
+export const userWithoutAddressSchema: any = yup.object().shape({
+  updatedAt: yup.string(),
+  createdAt: yup.string(),
+  is_seller: yup.boolean(),
+  description: yup.string(),
+  birth_date: yup.string(),
+  phone: yup.string(),
+  cpf: yup.string(),
+  email: yup.string(),
+  name: yup.string(),
+  id: yup.string(),
+});
+
 export const userToReturnResponseSchema: any = yup.object().shape({
   address: addressToReturnRequestSchema,
   updatedAt: yup.string(),

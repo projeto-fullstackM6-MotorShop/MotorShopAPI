@@ -1,14 +1,13 @@
-import User from "../../entities/user.entity";
 import Announcement from "../../entities/announce.entity";
 import Comment from "../../entities/comment.entity";
 import { AppDataSource } from "../../data-source";
 import { Repository } from "typeorm";
-import { IComment } from "../../interfaces/comment";
+import { IGetComment } from "../../interfaces/comment";
 import { commentResponseSchemaArray } from "../../schemas/comment.schema";
 
 const getCommentsOfAnnouncementService = async (
   announcementId: string
-): Promise<IComment[]> => {
+): Promise<IGetComment[]> => {
   const announcementRepository: Repository<Announcement> =
     AppDataSource.getRepository(Announcement);
   const commentRepository: Repository<Comment> =
@@ -22,13 +21,16 @@ const getCommentsOfAnnouncementService = async (
     where: {
       announcement: announcement!,
     },
+    relations: {
+      user: true,
+    },
   });
 
   const validateResponse = await commentResponseSchemaArray.validate(comments, {
     stripUnknown: true,
   });
 
-  return validateResponse!;
+  return validateResponse! as IGetComment[];
 };
 
 export default getCommentsOfAnnouncementService;
