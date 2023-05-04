@@ -45,7 +45,7 @@ class Announcement {
   @Column({ type: "varchar" })
   description: string;
 
-  @Column({ type: "varchar" })
+  @Column({ type: "varchar", default: null })
   cover_img: string;
 
   @CreateDateColumn({ type: "date" })
