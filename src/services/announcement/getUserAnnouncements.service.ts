@@ -1,22 +1,31 @@
-import { Repository } from "typeorm";
-import { AppDataSource } from "../../data-source";
-import Announcement from "../../entities/announce.entity";
-import { IAnnouncementResponse } from "../../interfaces/announcement";
 import User from "../../entities/user.entity";
+import { AppDataSource } from "../../data-source";
+import { Repository } from "typeorm";
+import { IUserResponseWithAnnoucements } from "../../interfaces/user";
+import { userResponseWithAnnoucementsSchema } from "../../schemas/user.schema";
 
-const getUserAnnouncementsService = async (userId: any) => {
-  const announcementRepo: any = AppDataSource.getRepository(User);
+const getUserAnnouncementsService = async (
+  userId: string
+): Promise<IUserResponseWithAnnoucements> => {
+  const userRepository: Repository<User> = AppDataSource.getRepository(User);
 
-  const userAnnouncements = await announcementRepo.find({
+  const userWithAnnoucements = await userRepository.findOne({
     where: {
       id: userId,
     },
     relations: {
-      annoucements: true
-    }
-  }); 
+      annoucements: true,
+    },
+  });
 
-  return userAnnouncements[0].annoucements
+  const validateResponse = await userResponseWithAnnoucementsSchema.validate(
+    userWithAnnoucements,
+    {
+      stripUnknown: true,
+    }
+  );
+
+  return validateResponse;
 };
 
 export default getUserAnnouncementsService;

@@ -1,4 +1,5 @@
 import { IAddressRequest, IAddressResponse } from "../address";
+import { IAnnouncementResponse } from "../announcement";
 
 export interface IUser {
   name: string;
@@ -24,6 +25,20 @@ export interface IUserResponse {
   createdAt: string;
   updatedAt: string;
   address?: IAddressResponse;
+}
+
+export interface IUserResponseWithAnnoucements {
+  id: string;
+  name: string;
+  email: string;
+  cpf: string;
+  phone: string;
+  birth_date: string;
+  description: string;
+  is_seller: boolean;
+  createdAt: string;
+  updatedAt: string;
+  annoucements: IAnnouncementResponse[];
 }
 
 export interface IUserUpdate {
