@@ -11,7 +11,7 @@ const getByIdAnnouncementService = async (
 
   const findAnnoucement = await announcementRepository.findOne({
     where: { id: id },
-    relations: { image: true },
+    relations: { image: true, user: true },
   });
 
   return findAnnoucement;
